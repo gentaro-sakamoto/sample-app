@@ -1,0 +1,7 @@
+.bundle
+vendor
+log
+node_modules
+tmp
+db
+public
