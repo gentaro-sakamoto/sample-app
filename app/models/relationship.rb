@@ -17,6 +17,22 @@
 class Relationship < ApplicationRecord
   belongs_to :follower, class_name: "User"
   belongs_to :followed, class_name: "User"
+  has_one :activity, as: :actable, dependent: :destroy
   validates :follower_id, presence: true
   validates :followed_id, presence: true
+
+  def other_follower_relationships(within_minutes: 5.minutes)
+    Relationship \
+      .where(followed_id: followed.id)
+      .where('created_at >= ?', within_minutes.ago)
+      .where.not(id: self.id)
+      .order(created_at: :desc)
+  end
+
+  def parent_activity
+    return nil if other_follower_relationships.blank?
+
+    last_relationship = other_follower_relationships.last
+    last_relationship.activity.parent || last_relationship.activity
+  end
 end

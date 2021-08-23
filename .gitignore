@@ -3,5 +3,6 @@ vendor
 log
 node_modules
 tmp
-db
 public
+.byebug_history
+*.sqlite3

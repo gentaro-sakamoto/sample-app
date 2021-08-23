@@ -23,6 +23,8 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     post login_path, params: { session: { email:    @user.email,
                                           password: 'password' } }
     assert is_logged_in?
+    assert(@user.initial_login.present?)
+    assert(@user.activity_notifications.present?)
     assert_redirected_to @user
     follow_redirect!
     assert_template 'users/show'
