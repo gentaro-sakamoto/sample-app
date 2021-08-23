@@ -31,3 +31,6 @@
 
 ja:
   hello: こんんちわ
+  activity_notification:
+    initial_login: 初回ログインありがとうございます。
+    followed: "%{username}さんにフォローされました"

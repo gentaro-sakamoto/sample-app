@@ -29,4 +29,13 @@ class ActivityNotification < ApplicationRecord
       end
     end
   end
+
+  def text
+    case activity.actable
+    when InitialLogin
+      I18n.t('.activity_notification.initial_login')
+    when Relationship
+      I18n.t('.activity_notification.followed', username: activity.actable.follower.name)
+    end
+  end
 end

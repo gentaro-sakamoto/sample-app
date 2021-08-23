@@ -16,7 +16,16 @@
 require 'test_helper'
 
 class ActivityNotificationTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  setup do
+    @archer = users(:archer)
+    @lana = users(:lana)
+    InitialLogin.create_with_activity(user: @archer)
+    @lana.follow(@archer)
+  end
+
+  test "list 2 type of activity notifications" do
+    assert(@archer.activity_notifications.size == 2)
+    assert(@archer.activity_notifications.order(:created_at)[0].text == '初回ログインありがとうございます。')
+    assert(@archer.activity_notifications.order(:created_at)[1].text == "Lana Kaneさんにフォローされました")
+  end
 end
