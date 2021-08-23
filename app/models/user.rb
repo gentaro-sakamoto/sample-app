@@ -110,7 +110,7 @@ class User < ApplicationRecord
 
   # ユーザーをフォローする
   def follow(other_user)
-    following << other_user
+    RelationshipWithActivity.follow(follower: self, followed: other_user)
   end
 
   # ユーザーをフォロー解除する
