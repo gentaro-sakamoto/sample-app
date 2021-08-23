@@ -34,3 +34,4 @@ ja:
   activity_notification:
     initial_login: 初回ログインありがとうございます。
     followed: "%{username}さんにフォローされました"
+    multiple_followed: "%{username}さん他%{size}名にフォローされました"

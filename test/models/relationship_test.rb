@@ -36,4 +36,24 @@ class RelationshipTest < ActiveSupport::TestCase
     @relationship.followed_id = nil
     assert_not @relationship.valid?
   end
+
+  test "#other_follower_relationships" do
+    lana = users(:lana)
+    michael = users(:michael)
+    malory = users(:malory)
+    archer = users(:archer)
+    michael.follow(archer)
+    last_relationship = michael.active_relationships.last
+    assert(last_relationship.other_follower_relationships.size == 0)
+
+    travel_to 4.minutes.after
+    lana.follow(archer)
+    last_relationship = lana.active_relationships.last
+    assert(last_relationship.other_follower_relationships.size == 1)
+
+    travel_to (5.minutes + 1.second).after
+    malory.follow(archer)
+    last_relationship = malory.active_relationships.last
+    assert(last_relationship.other_follower_relationships.size == 0)
+  end
 end

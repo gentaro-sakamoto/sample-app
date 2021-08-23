@@ -16,4 +16,6 @@
 class Activity < ApplicationRecord
   belongs_to :actable, polymorphic: true
   has_one :notifications, dependent: :destroy, class_name: "ActivityNotification"
+  belongs_to :parent, class_name: "Activity", foreign_key: 'parent_id', optional: true
+  has_many :children, class_name: "Activity", foreign_key: 'parent_id'
 end

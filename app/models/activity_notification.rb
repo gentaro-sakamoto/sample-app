@@ -24,6 +24,8 @@ class ActivityNotification < ApplicationRecord
         when InitialLogin
           ActivityNotification.create(recipient: activity.actable.user, activity: activity)
         when Relationship
+          return if activity.parent_id?
+
           ActivityNotification.create(recipient: activity.actable.followed, activity: activity)
         end
       end
@@ -35,7 +37,16 @@ class ActivityNotification < ApplicationRecord
     when InitialLogin
       I18n.t('.activity_notification.initial_login')
     when Relationship
-      I18n.t('.activity_notification.followed', username: activity.actable.follower.name)
+      if activity.children.present?
+        I18n.t(
+          '.activity_notification.multiple_followed',
+          username: activity.actable.follower.name,
+          size: activity.children.size
+        )
+      else
+        I18n.t('.activity_notification.followed', username: activity.actable.follower.name)
+      end
+
     end
   end
 end

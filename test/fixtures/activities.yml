@@ -18,3 +18,12 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
+one:
+  actable: one (Relationship)
+two:
+  actable: two (Relationship)
+three:
+  actable: three (Relationship)
+four:
+  actable: four (Relationship)
+  parent: three

@@ -14,8 +14,9 @@ class RelationshipWithActivity
     ActiveRecord::Base.transaction do
       @follower.following << @followed
       created_relationship = @follower.active_relationships.last
-      a = created_relationship.create_activity
+      a = created_relationship.create_activity(parent: created_relationship.parent_activity)
       ActivityNotification::Factory.create(activity: a)
+      created_relationship
     end
   end
 end
