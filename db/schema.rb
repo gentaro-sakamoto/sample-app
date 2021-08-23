@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_23_054337) do
+ActiveRecord::Schema.define(version: 2021_08_23_062211) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -40,6 +40,15 @@ ActiveRecord::Schema.define(version: 2021_08_23_054337) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["actable_type", "actable_id"], name: "index_activities_on_actable_type_and_actable_id", unique: true
+  end
+
+  create_table "activity_notifications", force: :cascade do |t|
+    t.integer "activity_id"
+    t.integer "recipient_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["activity_id"], name: "index_activity_notifications_on_activity_id"
+    t.index ["recipient_id"], name: "index_activity_notifications_on_recipient_id"
   end
 
   create_table "initial_logins", force: :cascade do |t|

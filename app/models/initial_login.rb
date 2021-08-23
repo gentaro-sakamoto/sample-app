@@ -25,7 +25,8 @@ class InitialLogin < ApplicationRecord
 
       ActiveRecord::Base.transaction do
         il = user.create_initial_login
-        il.create_activity
+        a = il.create_activity
+        ActivityNotification::Factory.create(activity: a)
       end
     end
   end

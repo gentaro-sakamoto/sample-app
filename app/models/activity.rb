@@ -15,4 +15,5 @@
 #
 class Activity < ApplicationRecord
   belongs_to :actable, polymorphic: true
+  has_one :notifications, dependent: :destroy, class_name: "ActivityNotification"
 end
