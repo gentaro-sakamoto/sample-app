@@ -23,6 +23,8 @@ class ActivityNotification < ApplicationRecord
         case activity.actable
         when InitialLogin
           ActivityNotification.create(recipient: activity.actable.user, activity: activity)
+        when Relationship
+          ActivityNotification.create(recipient: activity.actable.followed, activity: activity)
         end
       end
     end
