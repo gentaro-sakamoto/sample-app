@@ -28,4 +28,11 @@ class ActivityNotificationTest < ActiveSupport::TestCase
     assert(@archer.activity_notifications.order(:created_at)[0].text == '初回ログインありがとうございます。')
     assert(@archer.activity_notifications.order(:created_at)[1].text == "Lana Kaneさんにフォローされました")
   end
+
+  test "when lana unfollowed archer" do
+    @lana.unfollow(@archer)
+
+    assert(@archer.activity_notifications.size == 1)
+    assert(@archer.activity_notifications.order(:created_at)[0].text == '初回ログインありがとうございます。')
+  end
 end
