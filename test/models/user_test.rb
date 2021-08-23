@@ -104,10 +104,12 @@ class UserTest < ActiveSupport::TestCase
     archer  = users(:archer)
     assert_not michael.following?(archer)
     michael.follow(archer)
+    assert(Activity.all.size == 1)
     assert michael.following?(archer)
     assert archer.followers.include?(michael)
     michael.unfollow(archer)
     assert_not michael.following?(archer)
+    assert(Activity.all.size.zero?)
   end
 
   test "feed should have the right posts" do
